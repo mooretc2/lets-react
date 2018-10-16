@@ -6,12 +6,12 @@
 
 import { put, takeEvery } from 'redux-saga/effects';
 
-import Logger from '../../utils/Logger';
-import { ERR_ACTION_VALUE_NOT_DEFINED } from '../../utils/Errors';
+import Logger from '../../../utils/Logger';
+import { ERR_ACTION_VALUE_NOT_DEFINED } from '../../../utils/Errors';
 import {
   LOAD_APP,
   loadApp,
-} from './AppActions';
+} from '../actions/AppActions';
 
 const LOG = new Logger('AppSagas');
 

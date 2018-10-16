@@ -2,15 +2,13 @@
  * @flow
  */
 
-import { AuthReducer } from 'lattice-auth';
 import { combineReducers } from 'redux-immutable';
 
-import appReducer from '../../containers/app/AppReducer';
+import appReducer from '../../containers/app/reducers/AppReducer';
 
 export default function reduxReducer() {
 
   return combineReducers({
-    app: appReducer,
-    auth: AuthReducer
+    app: appReducer
   });
 }

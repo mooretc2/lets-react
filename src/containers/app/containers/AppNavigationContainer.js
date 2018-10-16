@@ -5,13 +5,10 @@
 import React, { Component } from 'react';
 
 import styled from 'styled-components';
-import { Colors } from 'lattice-ui-kit';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 
-import * as Routes from '../../core/router/Routes';
-
-const { NEUTRALS, PURPLES } = Colors;
+import * as Routes from '../../../core/router/Routes';
 
 const NAV_LINK_ACTIVE_CLASSNAME :string = 'nav-link-active';
 
@@ -27,7 +24,6 @@ const NavLinkWrapper = styled(NavLink).attrs({
 })`
   align-items: center;
   border-bottom: 3px solid transparent;
-  color: ${NEUTRALS[1]};
   display: flex;
   font-size: 12px;
   letter-spacing: 0;
@@ -42,15 +38,13 @@ const NavLinkWrapper = styled(NavLink).attrs({
   }
 
   &:hover {
-    color: ${NEUTRALS[0]};
     cursor: pointer;
     outline: none;
     text-decoration: none;
   }
 
   &.${NAV_LINK_ACTIVE_CLASSNAME} {
-    border-bottom: 3px solid ${PURPLES[1]};
-    color: ${PURPLES[1]};
+    border-bottom: 3px solid;
   }
 `;
 

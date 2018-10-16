@@ -3,12 +3,9 @@
  */
 
 import Lattice from 'lattice';
-import LatticeAuth from 'lattice-auth';
 
 // injected by Webpack.DefinePlugin
 declare var __ENV_DEV__ :boolean;
-
-const { AuthUtils } = LatticeAuth;
 
 export function getLatticeConfigBaseUrl() :string {
 
@@ -23,7 +20,6 @@ export function getLatticeConfigBaseUrl() :string {
 export function resetLatticeConfig() :void {
 
   Lattice.configure({
-    authToken: AuthUtils.getAuthToken(),
     baseUrl: getLatticeConfigBaseUrl(),
   });
 }

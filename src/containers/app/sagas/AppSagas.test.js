@@ -15,7 +15,7 @@ import {
   GENERATOR_TAG,
   testShouldBeGeneratorFunction,
   testWatcherSagaShouldTakeEvery,
-} from '../../utils/testing/TestUtils';
+} from '../../../utils/testing/TestUtils';
 
 describe('AppSagas', () => {
 

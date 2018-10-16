@@ -6,24 +6,19 @@ import React, { Component } from 'react';
 
 import styled from 'styled-components';
 import { Map } from 'immutable';
-import { AuthActionFactory } from 'lattice-auth';
-import { Button, Colors } from 'lattice-ui-kit';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 
 import AppNavigationContainer from './AppNavigationContainer';
-import OpenLatticeLogo from '../../assets/images/logo_v2.png';
-import * as Routes from '../../core/router/Routes';
+import OpenLatticeLogo from '../../../assets/images/logo_v2.png';
+import * as Routes from '../../../core/router/Routes';
 import {
   APP_CONTAINER_MAX_WIDTH,
   APP_CONTAINER_WIDTH,
   APP_CONTENT_PADDING,
-} from '../../core/style/Sizes';
-
-const { logout } = AuthActionFactory;
-const { NEUTRALS } = Colors;
+} from '../../../core/style/Sizes';
 
 // TODO: this should come from lattice-ui-kit, maybe after the next release. current version v0.1.1
 const APP_HEADER_BORDER :string = '#e6e6eb';
@@ -84,18 +79,10 @@ const AppLogoIcon = styled.img.attrs({
 `;
 
 const AppTitle = styled.h1`
-  color: ${NEUTRALS[0]};
   font-size: 14px;
   font-weight: 600;
   line-height: normal;
   margin: 0 0 0 10px;
-`;
-
-const LogoutButton = styled(Button)`
-  font-size: 12px;
-  line-height: 16px;
-  margin-left: 30px;
-  padding: 6px 29px;
 `;
 
 type Props = {
@@ -120,12 +107,8 @@ class AppHeaderContainer extends Component<Props> {
 
   renderRightSideContent = () => {
 
-    const { actions } = this.props;
     return (
       <RightSideContentWrapper>
-        <LogoutButton onClick={actions.logout}>
-          Log Out
-        </LogoutButton>
       </RightSideContentWrapper>
     );
   }
@@ -152,9 +135,7 @@ function mapStateToProps(state :Map<*, *>) :Object {
 
 function mapDispatchToProps(dispatch :Function) :Object {
 
-  return {
-    actions: bindActionCreators({ logout }, dispatch)
-  };
+  return {};
 }
 
 export default withRouter(

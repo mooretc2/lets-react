@@ -6,11 +6,6 @@ const Webpack = require('webpack');
 const APP_CONFIG = require('../app/app.config.js');
 const APP_PATHS = require('../app/paths.config.js');
 const PACKAGE = require('../../package.json');
-const {
-  AUTH0_CLIENT_ID_DEV,
-  AUTH0_CLIENT_ID_PROD,
-  AUTH0_DOMAIN,
-} = require('../auth/auth0.config.js');
 
 module.exports = (env) => {
 
@@ -63,8 +58,6 @@ module.exports = (env) => {
   });
 
   const DEFINE_PLUGIN = new Webpack.DefinePlugin({
-    __AUTH0_CLIENT_ID__: JSON.stringify(env.production ? AUTH0_CLIENT_ID_PROD : AUTH0_CLIENT_ID_DEV),
-    __AUTH0_DOMAIN__: JSON.stringify(AUTH0_DOMAIN),
     __BASE_PATH__: JSON.stringify(BASE_PATH),
     __ENV_DEV__: JSON.stringify(!!env.development),
     __ENV_PROD__: JSON.stringify(!!env.production),

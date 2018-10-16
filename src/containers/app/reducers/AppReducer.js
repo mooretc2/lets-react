@@ -5,7 +5,7 @@
 import { Map, fromJS } from 'immutable';
 import isNumber from 'lodash/isNumber';
 
-import { loadApp } from './AppActions';
+import { loadApp } from '../actions/AppActions';
 
 const INITIAL_STATE :Map<*, *> = fromJS({
   actions: {

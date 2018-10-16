@@ -11,15 +11,15 @@ import { bindActionCreators } from 'redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 import AppHeaderContainer from './AppHeaderContainer';
-import Spinner from '../../components/spinner/Spinner';
-import * as Routes from '../../core/router/Routes';
-import { loadApp } from './AppActions';
-import { APP_NAME } from '../../utils/Constants';
+import Spinner from '../../../components/spinner/Spinner';
+import * as Routes from '../../../core/router/Routes';
+import { loadApp } from '../actions/AppActions';
+import { APP_NAME } from '../../../utils/Constants';
 import {
   APP_CONTAINER_MAX_WIDTH,
   APP_CONTAINER_WIDTH,
   APP_CONTENT_PADDING
-} from '../../core/style/Sizes';
+} from '../../../core/style/Sizes';
 
 // TODO: this should come from lattice-ui-kit, maybe after the next release. current version v0.1.1
 const APP_CONTENT_BG :string = '#f8f8fb';
