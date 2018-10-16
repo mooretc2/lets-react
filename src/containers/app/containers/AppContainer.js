@@ -8,13 +8,14 @@ import styled from 'styled-components';
 import { Map } from 'immutable';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch, withRouter } from 'react-router-dom';
 
 import AppHeaderContainer from './AppHeaderContainer';
 import Spinner from '../../../components/spinner/Spinner';
 import * as Routes from '../../../core/router/Routes';
 import { loadApp } from '../actions/AppActions';
 import { APP_NAME } from '../../../utils/Constants';
+import AllTextComponent from '../../../components/AllTextComponent';
 import {
   APP_CONTAINER_MAX_WIDTH,
   APP_CONTAINER_WIDTH,
@@ -78,7 +79,7 @@ class AppContainer extends Component<Props> {
     return (
       <Switch>
         <Route exact strict path={Routes.HOME} />
-        <Route path="/tab1" render={() => null} />
+        <Route exact path={Routes.ALLTEXT} component={AllTextComponent} />
         <Route path="/tab2" render={() => null} />
         <Redirect to={Routes.HOME} />
       </Switch>
@@ -114,4 +115,4 @@ function mapDispatchToProps(dispatch :Function) :Object {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppContainer));

@@ -20,6 +20,6 @@ export function getLatticeConfigBaseUrl() :string {
 export function resetLatticeConfig() :void {
 
   Lattice.configure({
-    baseUrl: getLatticeConfigBaseUrl(),
+    baseUrl: getLatticeConfigBaseUrl()
   });
 }

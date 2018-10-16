@@ -11,6 +11,6 @@ export default function* sagas() :Generator<*, *, *> {
   yield [
 
     // AppSagas
-    fork(AppSagas.loadAppWatcher),
+    fork(AppSagas.loadAppWatcher)
   ];
 }
