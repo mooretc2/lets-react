@@ -15,7 +15,9 @@ import Spinner from '../../../components/spinner/Spinner';
 import * as Routes from '../../../core/router/Routes';
 import { loadApp } from '../actions/AppActions';
 import { APP_NAME } from '../../../utils/Constants';
-import AllTextComponent from '../../../components/AllTextComponent';
+import NamespacesContainer from './NamespacesContainer';
+import { EntityDataModelApiActionFactory } from 'lattice-sagas';
+const { getEntityDataModel } = EntityDataModelApiActionFactory;
 import {
   APP_CONTAINER_MAX_WIDTH,
   APP_CONTAINER_WIDTH,
@@ -23,7 +25,7 @@ import {
 } from '../../../core/style/Sizes';
 
 // TODO: this should come from lattice-ui-kit, maybe after the next release. current version v0.1.1
-const APP_CONTENT_BG :string = '#f8f8fb';
+const APP_CONTENT_BG: string = '#f8f8fb';
 
 const AppContainerWrapper = styled.div`
   display: flex;
@@ -53,10 +55,12 @@ const AppContentInnerWrapper = styled.div`
 `;
 
 type Props = {
-  actions :{
-    loadApp :RequestSequence;
+  actions: {
+    loadApp: RequestSequence,
+    getEntityDataModel: RequestSequence
   };
-  isLoadingApp :boolean;
+  isLoadingApp: boolean,
+  gettingEDM: boolean
 };
 
 class AppContainer extends Component<Props> {
@@ -65,11 +69,12 @@ class AppContainer extends Component<Props> {
 
     const { actions } = this.props;
     actions.loadApp(APP_NAME);
+    actions.getEntityDataModel();
   }
 
   renderAppContent = () => {
 
-    const { isLoadingApp } = this.props;
+    const { isLoadingApp, gettingEDM } = this.props;
     if (isLoadingApp) {
       return (
         <Spinner />
@@ -79,7 +84,7 @@ class AppContainer extends Component<Props> {
     return (
       <Switch>
         <Route exact strict path={Routes.HOME} />
-        <Route exact path={Routes.ALLTEXT} component={AllTextComponent} />
+        <Route exact path={Routes.NAMESPACES} component={NamespacesContainer} />
         <Route path="/tab2" render={() => null} />
         <Redirect to={Routes.HOME} />
       </Switch>
@@ -93,7 +98,7 @@ class AppContainer extends Component<Props> {
         <AppHeaderContainer />
         <AppContentOuterWrapper>
           <AppContentInnerWrapper>
-            { this.renderAppContent() }
+            {this.renderAppContent()}
           </AppContentInnerWrapper>
         </AppContentOuterWrapper>
       </AppContainerWrapper>
@@ -101,17 +106,18 @@ class AppContainer extends Component<Props> {
   }
 }
 
-function mapStateToProps(state :Map<*, *>) :Object {
+function mapStateToProps(state: Map<*, *>): Object {
 
   return {
     isLoadingApp: state.getIn(['app', 'isLoadingApp'], false),
+    gettingEDM: state.getIn(['app', 'gettingEDM'], false)
   };
 }
 
-function mapDispatchToProps(dispatch :Function) :Object {
+function mapDispatchToProps(dispatch: Function): Object {
 
   return {
-    actions: bindActionCreators({ loadApp }, dispatch)
+    actions: bindActionCreators({ loadApp, getEntityDataModel }, dispatch)
   };
 }
 

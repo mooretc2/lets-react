@@ -3,5 +3,5 @@
  */
 
 export const ROOT :string = '/';
-export const ALLTEXT :string = '/allText';
+export const NAMESPACES :string = '/namespaces';
 export const HOME :string = '/home';

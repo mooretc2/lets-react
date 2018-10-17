@@ -4,6 +4,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Lattice from 'lattice';
 
 import { normalize } from 'polished';
 import { Provider } from 'react-redux';
@@ -15,6 +16,10 @@ import initializeReduxStore from './core/redux/ReduxStore';
 import initializeRouterHistory from './core/router/RouterHistory';
 import * as Routes from './core/router/Routes';
 import { getLatticeConfigBaseUrl } from './utils/Utils';
+
+Lattice.configure({
+  baseUrl: 'production'
+});
 
 /* eslint-disable */
 // TODO: move into core/styles

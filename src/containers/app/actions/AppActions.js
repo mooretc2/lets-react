@@ -9,5 +9,5 @@ const loadApp :RequestSequence = newRequestSequence(LOAD_APP);
 
 export {
   LOAD_APP,
-  loadApp,
+  loadApp
 };
