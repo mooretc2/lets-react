@@ -15,7 +15,7 @@ import Spinner from '../../../components/spinner/Spinner';
 import * as Routes from '../../../core/router/Routes';
 import { loadApp } from '../actions/AppActions';
 import { APP_NAME } from '../../../utils/Constants';
-import NamespacesContainer from './NamespacesContainer';
+import NamespaceListContainer from './NamespaceListContainer';
 import { EntityDataModelApiActionFactory } from 'lattice-sagas';
 const { getEntityDataModel } = EntityDataModelApiActionFactory;
 import {
@@ -84,7 +84,7 @@ class AppContainer extends Component<Props> {
     return (
       <Switch>
         <Route exact strict path={Routes.HOME} />
-        <Route exact path={Routes.NAMESPACES} component={NamespacesContainer} />
+        <Route exact path={Routes.NAMESPACES} component={NamespaceListContainer} />
         <Route path="/tab2" render={() => null} />
         <Redirect to={Routes.HOME} />
       </Switch>

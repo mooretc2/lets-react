@@ -95,11 +95,19 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
             return state;
           }
 
+          let collectedEntityTypes = {};
+          value.entityTypes.map((entityType) => {
+            if (collectedEntityTypes[entityType.type.namespace]) {
+              collectedEntityTypes[entityType.type.namespace].push(entityType)
+            } else {
+              collectedEntityTypes[entityType.type.namespace] = [entityType]
+            }
+          });
+
           // TODO: do something with "value"
           return state
             .set('namespaces', value.namespaces)
-            .set('schemas', value.schemas)
-            .set('entityTypes', value.entityTypes)
+            .set('entityTypes', collectedEntityTypes)
             .set('associationTypes', value.associationTypes)
             .set('propertyTypes', value.propertyTypes);
         },
