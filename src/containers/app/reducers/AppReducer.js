@@ -95,12 +95,20 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
             return state;
           }
 
-          let collectedEntityTypes = {};
+          let collectedEntityTypes = {},
+            collectedPropertyTypes = {};
           value.entityTypes.map((entityType) => {
             if (collectedEntityTypes[entityType.type.namespace]) {
               collectedEntityTypes[entityType.type.namespace].push(entityType)
             } else {
               collectedEntityTypes[entityType.type.namespace] = [entityType]
+            }
+          });
+          value.propertyTypes.map((propertyType) => {
+            if (collectedPropertyTypes[propertyType.type.namespace]) {
+              collectedPropertyTypes[propertyType.type.namespace].push(propertyType)
+            } else {
+              collectedPropertyTypes[propertyType.type.namespace] = [propertyType]
             }
           });
 
@@ -109,7 +117,7 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
             .set('namespaces', value.namespaces)
             .set('entityTypes', collectedEntityTypes)
             .set('associationTypes', value.associationTypes)
-            .set('propertyTypes', value.propertyTypes);
+            .set('propertyTypes', collectedPropertyTypes);
         },
         FAILURE: () => {
 
