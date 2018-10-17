@@ -112,9 +112,17 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
             }
           });
 
+          let namespaces = value.namespaces.sort((ns1, ns2) => {
+            let et1Length = collectedEntityTypes[ns1] ? collectedEntityTypes[ns1].length : 0;
+            let et2Length = collectedEntityTypes[ns2] ? collectedEntityTypes[ns2].length : 0;
+            let pt1Length = collectedPropertyTypes[ns1] ? collectedPropertyTypes[ns1].length : 0;
+            let pt2Length = collectedPropertyTypes[ns2] ? collectedPropertyTypes[ns2].length : 0;
+            return et2Length + pt2Length - (et1Length + pt1Length);
+          })
+
           // TODO: do something with "value"
           return state
-            .set('namespaces', value.namespaces)
+            .set('namespaces', namespaces)
             .set('entityTypes', collectedEntityTypes)
             .set('associationTypes', value.associationTypes)
             .set('propertyTypes', collectedPropertyTypes);
