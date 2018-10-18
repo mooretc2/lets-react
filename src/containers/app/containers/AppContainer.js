@@ -17,6 +17,7 @@ import { loadApp } from '../actions/AppActions';
 import { APP_NAME } from '../../../utils/Constants';
 import NamespaceListContainer from './NamespaceListContainer';
 import GraphContainer from './GraphContainer';
+import HomeComponent from '../../../components/HomeComponent';
 import { EntityDataModelApiActionFactory } from 'lattice-sagas';
 const { getEntityDataModel } = EntityDataModelApiActionFactory;
 import {
@@ -84,7 +85,7 @@ class AppContainer extends Component<Props> {
 
     return (
       <Switch>
-        <Route exact strict path={Routes.HOME} />
+        <Route exact strict path={Routes.HOME} component={HomeComponent} />
         <Route exact path={Routes.NAMESPACES} component={NamespaceListContainer} />
         <Route exact path={Routes.GRAPHS} component={GraphContainer} />
         <Redirect to={Routes.HOME} />

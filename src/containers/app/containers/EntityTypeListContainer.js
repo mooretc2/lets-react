@@ -5,7 +5,6 @@ import { entityTypeSelected } from '../actions/AppActions'
 
 class EntityTypeListContainer extends Component {
     handleClick = (event) => {
-        console.log(event.target.id)
         this.props.actions.entityTypeSelected(event.target.id);
     }
 

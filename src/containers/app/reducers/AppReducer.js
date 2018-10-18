@@ -35,7 +35,6 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
             .setIn(['actions', 'loadApp', seqAction.id], fromJS(seqAction));
         },
         SUCCESS: () => {
-          console.log(action)
           const seqAction: SequenceAction = (action: any);
           if (!state.hasIn(['actions', 'loadApp', seqAction.id])) {
             return state;
