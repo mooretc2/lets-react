@@ -11,6 +11,8 @@ export default function* sagas() :Generator<*, *, *> {
 
   yield [
     fork(EntityDataModelApiSagas.getEntityDataModelWatcher),
+    fork(AppSagas.propertyTypeSelectedWatcher),
+    fork(AppSagas.entityTypeSelectedWatcher),
     // AppSagas
     fork(AppSagas.loadAppWatcher)
   ];

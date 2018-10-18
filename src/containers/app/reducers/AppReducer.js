@@ -8,7 +8,7 @@ import isNumber from 'lodash/isNumber';
 import { EntityDataModelApiActionFactory } from 'lattice-sagas';
 const { getEntityDataModel } = EntityDataModelApiActionFactory;
 
-import { loadApp } from '../actions/AppActions';
+import { loadApp, propertyTypeSelected, entityTypeSelected } from '../actions/AppActions';
 
 const INITIAL_STATE: Map<*, *> = fromJS({
   actions: {
@@ -35,7 +35,7 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
             .setIn(['actions', 'loadApp', seqAction.id], fromJS(seqAction));
         },
         SUCCESS: () => {
-
+          console.log(action)
           const seqAction: SequenceAction = (action: any);
           if (!state.hasIn(['actions', 'loadApp', seqAction.id])) {
             return state;
@@ -89,7 +89,6 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
           if (!state.hasIn(['actions', 'getEntityDataModel', seqAction.id])) {
             return state;
           }
-
           const { value } = seqAction;
           if (value === null || value === undefined) {
             return state;
@@ -124,8 +123,10 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
           return state
             .set('namespaces', namespaces)
             .set('entityTypes', collectedEntityTypes)
+            .set('rawEntityTypes', value.entityTypes)
             .set('associationTypes', value.associationTypes)
-            .set('propertyTypes', collectedPropertyTypes);
+            .set('propertyTypes', collectedPropertyTypes)
+            .set('rawPropertyTypes', value.propertyTypes);
         },
         FAILURE: () => {
 
@@ -154,7 +155,106 @@ export default function appReducer(state: Map<*, *> = INITIAL_STATE, action: Obj
         }
       })
     }
+    case propertyTypeSelected.case(action.type): {
+      return propertyTypeSelected.reducer(state, action, {
+        REQUEST: () => {
+          const seqAction: SequenceAction = (action: any);
+          return state
+            .setIn(['actions', 'typeSelected', seqAction.id], fromJS(seqAction));
+        },
+        SUCCESS: () => {
+          const seqAction: SequenceAction = (action: any);
+          
+          if (!state.hasIn(['actions', 'typeSelected', seqAction.id])) {
+            return state;
+          }
 
+          const { value } = seqAction;
+          if (value === null || value === undefined) {
+            return state;
+          }
+
+          // TODO: do something with "value"
+          return state
+            .set('selectedType', value)
+            .set('selectedTypeType', 'property');
+        },
+        FAILURE: () => {
+
+          const seqAction: SequenceAction = (action: any);
+          const error = {};
+
+          /*
+           * value is expected to be an error object. for lattice-sagas / lattice-js, the error object is expected
+           * to be the Axios error object. for more info:
+           *   https://github.com/axios/axios#handling-errors
+           */
+          const { value: axiosError } = seqAction;
+          if (axiosError && axiosError.response && isNumber(axiosError.response.status)) {
+            // for now, we only care about the HTTP status code. we can get more fancy later on.
+            error.status = axiosError.response.status;
+          }
+
+          // TODO: there's probably a significantly better way of handling errors
+          return state.setIn(['errors', 'typeSelected'], fromJS(error));
+        },
+        FINALLY: () => {
+          const seqAction: SequenceAction = (action: any);
+          return state
+            .deleteIn(['actions', 'typeSelected', seqAction.id]);
+        }
+      });
+    }
+    case entityTypeSelected.case(action.type): {
+      return entityTypeSelected.reducer(state, action, {
+        REQUEST: () => {
+          const seqAction: SequenceAction = (action: any);
+          return state
+            .setIn(['actions', 'typeSelected', seqAction.id], fromJS(seqAction));
+        },
+        SUCCESS: () => {
+          const seqAction: SequenceAction = (action: any);
+          
+          if (!state.hasIn(['actions', 'typeSelected', seqAction.id])) {
+            return state;
+          }
+
+          const { value } = seqAction;
+          if (value === null || value === undefined) {
+            return state;
+          }
+
+          // TODO: do something with "value"
+          return state
+            .set('selectedType', value)
+            .set('selectedTypeType', 'entity');
+        },
+        FAILURE: () => {
+
+          const seqAction: SequenceAction = (action: any);
+          const error = {};
+
+          /*
+           * value is expected to be an error object. for lattice-sagas / lattice-js, the error object is expected
+           * to be the Axios error object. for more info:
+           *   https://github.com/axios/axios#handling-errors
+           */
+          const { value: axiosError } = seqAction;
+          if (axiosError && axiosError.response && isNumber(axiosError.response.status)) {
+            // for now, we only care about the HTTP status code. we can get more fancy later on.
+            error.status = axiosError.response.status;
+          }
+
+          // TODO: there's probably a significantly better way of handling errors
+          return state.setIn(['errors', 'typeSelected'], fromJS(error));
+        },
+        FINALLY: () => {
+          const seqAction: SequenceAction = (action: any);
+          return state
+            .deleteIn(['actions', 'typeSelected', seqAction.id]);
+        }
+      });
+    }
     default:
       return state;
   }

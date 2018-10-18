@@ -1,10 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {propertyTypeSelected} from '../actions/AppActions'
 
-export default class PropertyTypeListComponent extends Component {
+class PropertyTypeListContainer extends Component {
+
+    handleClick = (event) => {
+        console.log(event.target.id)
+        this.props.actions.propertyTypeSelected(event.target.id);
+    }
+
     insertProperties() {
         if (this.props.propertyTypes) {
             return this.props.propertyTypes.map((propertyType) => {
-                return <li className='list-group-item' key={propertyType.id} style={{paddingLeft: '60px'}}>{propertyType.title}</li>
+                return (
+                    <li
+                        className='list-group-item'
+                        id={propertyType.id}
+                        key={propertyType.id}
+                        style={{ paddingLeft: '60px' }}
+                        onClick={this.handleClick}>
+                        {propertyType.title}
+                    </li>
+                )
             })
         }
     }
@@ -17,7 +35,7 @@ export default class PropertyTypeListComponent extends Component {
                     href={`#collapse${this.props.namespace}properties`}
                     aria-expanded='false'
                     aria-controls={`collapse${this.props.namespace}properties`}
-                    style={{paddingLeft: '40px'}}>
+                    style={{ paddingLeft: '40px' }}>
                     Property Types
                     <span className='badge badge-primary badge-pill'>{this.props.propertyTypes ? this.props.propertyTypes.length : 0}</span>
                 </a>
@@ -30,3 +48,11 @@ export default class PropertyTypeListComponent extends Component {
         )
     }
 }
+
+function mapDispatchToProps(dispatch) {
+    return {
+        actions: bindActionCreators({ propertyTypeSelected }, dispatch)
+    }
+}
+
+export default connect(null, mapDispatchToProps)(PropertyTypeListContainer);

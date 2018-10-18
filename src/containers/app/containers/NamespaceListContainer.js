@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Map, List, getIn } from 'immutable';
 import NamespaceContainer from './NamespaceContainer';
+import styled from 'styled-components';
+import FocusViewContainer from './FocusViewContainer'
 
 type Props = {
     namespaces: Array<string>
@@ -22,6 +24,9 @@ class NamespaceListContainer extends Component<Props> {
             <div className='row'>
                 <div className='col-sm-6'>
                     <ul className='list-group'>{this.formatNamespaces()}</ul>
+                </div>
+                <div className='col-sm-6'>
+                        <FocusViewContainer />
                 </div>
             </div>
         )

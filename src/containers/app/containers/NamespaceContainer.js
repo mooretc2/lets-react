@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Map, getIn } from 'immutable';
-import EntityTypeListComponent from '../../../components/EntityTypeListComponent';
-import PropertyTypeListComponent from '../../../components/PropertyTypeListComponent';
+import EntityTypeListContainer from './EntityTypeListContainer';
+import PropertyTypeListContainer from './PropertyTypeListContainer';
 
 class NamespaceContainer extends Component {
 
@@ -20,8 +20,8 @@ class NamespaceContainer extends Component {
                 </a>
                 <div className='collapse' id={`collapse${this.props.namespace}`}>
                     <ul className='list-group'>
-                        <EntityTypeListComponent namespace={this.props.namespace} entityTypes={this.props.entityTypes[this.props.namespace]} />
-                        <PropertyTypeListComponent namespace={this.props.namespace} propertyTypes={this.props.propertyTypes[this.props.namespace]} />
+                        <EntityTypeListContainer namespace={this.props.namespace} entityTypes={this.props.entityTypes[this.props.namespace]} />
+                        <PropertyTypeListContainer namespace={this.props.namespace} propertyTypes={this.props.propertyTypes[this.props.namespace]} />
                     </ul>
                 </div>
             </div>
