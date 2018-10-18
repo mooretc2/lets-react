@@ -62,8 +62,8 @@ class AppNavigationContainer extends Component<Props> {
         <NavLinkWrapper to={Routes.NAMESPACES}>
           Namespaces
         </NavLinkWrapper>
-        <NavLinkWrapper to="/tab2">
-          Tab 2
+        <NavLinkWrapper to={Routes.GRAPHS}>
+          Graphs
         </NavLinkWrapper>
       </NavigationContentWrapper>
     );

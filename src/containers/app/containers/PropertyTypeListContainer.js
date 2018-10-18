@@ -6,7 +6,6 @@ import {propertyTypeSelected} from '../actions/AppActions'
 class PropertyTypeListContainer extends Component {
 
     handleClick = (event) => {
-        console.log(event.target.id)
         this.props.actions.propertyTypeSelected(event.target.id);
     }
 
